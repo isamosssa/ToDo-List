@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link 
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <link rel="stylesheet" href="style.css"/>
+    <title>Document</title>
+</head>
+
+<body>
+<div style="text-align: center;" >
+    <script src="modal.js"></script>
+
+    <script>
+         function formatDate(date) {
+        var monthNames = [
+          "January", "February", "March",
+          "April", "May", "June", "July",
+          "August", "September", "October",
+          "November", "December"
+        ];
+      
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+      
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+      }
+    </script>
+
+    <h4>It's your ToDo List, <%= user.charAt(0).toUpperCase() + user.slice(1)%></h4>
+    <a href="/users/add">New Task</a>
+    </br>
+    <form action = "/dashboard">
+        <input type="radio" id="radioButton2" name = "sort" value = "Week"> Sort by Week
+        <input type="radio" id="radioButton3" name = "sort" value = "Future"> Sort by Future
+        </br>   
+        <button type="submit">OK</button>
+    </form>
+    <h5>To Do Items:</h5>
+    <% let now = new Date(); 
+     for(var i =0; i < todo.length; i++) { %>
+        <% if (todo[i].status == 0 && (now - todo[i].ending)<0) {%> 
+        <div>
+        <a href="#" data-toggle="modal" data-id="<%=todo[i].id %>" data-header="<%=todo[i].header %>" data-text="<%=todo[i].text %>" data-priority = <%=todo[i].priority %>  style="color: grey"> <%=todo[i].header %></a>
+        </br>
+        <% switch (todo[i].priority) {case 1: %> Low priority <%break;%> <% case 2: %> Middle priority <%break;%> <% case 3: %> High priority <%break;%> <%}%>
+        </div>
+    <% } else  if (todo[i].status == 0) { %>  
+        <div>
+        <a href="#" data-toggle="modal" data-id="<%=todo[i].id %>" data-header="<%=todo[i].header %>" data-text="<%=todo[i].text %>" data-priority = <%=todo[i].priority %> style="color: green"> <%=todo[i].header %></a>
+    </br>
+    <% switch (todo[i].priority) {case 1: %> Low priority <%break;%> <% case 2: %> Middle priority <%break;%> <% case 3: %> High priority <%break;%> <%}%>
+        </div>
+    <% } %>
+    <% } %>
+
+
+    <h5>Tasks in Process:</h5>
+    <% for(var i =0; i < todo.length; i++) { %>
+        <% if (todo[i].status == 1 && (now - todo[i].ending)<0) {%> 
+        <div>
+         <a href="#" data-toggle="modal" data-id="<%=todo[i].id %>" data-header="<%=todo[i].header %>" data-text="<%=todo[i].text %>" data-priority = <%=todo[i].priority %>  style="color: grey"> <%=todo[i].header %></a>
+        </br>
+        <% switch (todo[i].priority) {case 1: %> Low priority <%break;%> <% case 2: %> Middle priority <%break;%> <% case 3: %> High priority <%break;%> <%}%>
+        </div>
+    <% } else  if (todo[i].status == 1) { %>  
+        <div>
+         <a href="#" data-toggle="modal" data-id="<%=todo[i].id %>" data-header="<%=todo[i].header %>" data-text="<%=todo[i].text %>" data-priority = <%=todo[i].priority %> style="color: grey"> <%=todo[i].header %></a>
+        </br>
+        <% switch (todo[i].priority) {case 1: %> Low priority <%break;%> <% case 2: %> Middle priority <%break;%> <% case 3: %> High priority <%break;%> <%}%>
+        </div>
+    <% } %>
+    <% } %>
+
+    <h5>Completed tasks:</h5>
+    <% for(var i =0; i < todo.length; i++) { %>
+        <% if (todo[i].status == 2 ) {%>    
+        <div>
+         <a href="#" data-toggle="modal" data-id="<%=todo[i].id %>" data-header="<%=todo[i].header %>" data-text="<%=todo[i].text %>" data-priority = <%=todo[i].priority %> style="color: green"> <%=todo[i].header %></a>
+        </br>
+        <% switch (todo[i].priority) {case 1: %> Low priority <%break;%> <% case 2: %> Middle priority <%break;%> <% case 3: %> High priority <%break;%> <%}%>
+        </div>
+    <% } %>
+    <% } %>
+    
+
+    <h5>Canceled Tasks:</h5>
+    <% for(var i =0; i < todo.length; i++) { %>
+        <% if (todo[i].status == 3 && (now - todo[i].ending)<0) {%> 
+        <div>
+        <a href="#" data-toggle="modal" data-id="<%=todo[i].id %>" data-header="<%=todo[i].header %>" data-text="<%=todo[i].text %>" data-priority = <%=todo[i].priority %>  style="color: grey"> <%=todo[i].header %></a>
+        </br>
+        <% switch (todo[i].priority) {case 1: %> Low priority <%break;%> <% case 2: %> Middle priority <%break;%> <% case 3: %> High priority <%break;%> <%}%>
+    </div>
+    <% } else  if (todo[i].status == 3) { %>  
+        <div>
+         <a href="#" data-toggle="modal" data-id="<%=todo[i].id %>" data-header="<%=todo[i].header %>" data-text="<%=todo[i].text %>" data-priority = <%=todo[i].priority %> style="color: green"> <%=todo[i].header %></a>
+        </br>
+         <% switch (todo[i].priority) {case 1: %> Low priority <%break;%> <% case 2: %> Middle priority <%break;%> <% case 3: %> High priority <%break;%> <%}%>
+        </div>
+    <% } %>
+    <% } %>
+
+    <script>
+      let nowDate = new Date();
+
+      var modal = $modal({
+          title: "Infromation about task",
+      });
+
+      document.addEventListener('click', function(e) {
+    if (e.target.dataset.toggle === 'modal') {
+        modal.setTitle('Task Name: ' + e.target.dataset.header);
+        content = '<form action = "/updatetask" method = "POST">  <div class = "center"> Description of the task: </br> <input type="text" name="text"  value = "{{text}}"> <div> <label for="ending">Change eding date:</label> <input type="date" name="ending">  </br> Choose new priority: </br><select name = "priority"> <option value="1">Low</option> <option value="2">Mid</option> <option value="3">High</option> </select> </div> Choose new status: </br><select name = "status"> <option value="0">Need to do</option> <option value="1">In progress</option> <option value="2">Completed</option> <option value="3">Canceled</option> </select> </br> </div>  <input type="text" name="refreshing" value = "{{data}}"" hidden> <input type = "text" name = "id" value ="{{id}}" hidden /> <center> <button type = "submit">Update</button> </center> </div> </form> '
+        result = content.replace('{{text}}', e.target.dataset.text);
+        result = result.replace('{{id}}', e.target.dataset.id);
+        result = result.replace('{{data}}', formatDate(nowDate));
+        modal.setContent(result);   
+        modal.show();
+    }
+  });   
+    </script>
+
+
+    <a href="/users/logout">Logout</a>
+
+
+</div>
+</body>
+</html>

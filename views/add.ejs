@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title> ToDo App </title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100"     rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+    <link 
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+  </head>
+<body>
+  <div style="text-align: center;">
+<h1>ToDo List App</h1>
+<h3>Add New Task</h3>
+<form action ="/addtask" method="POST">
+       <div>
+       <input type="text" name="header" placeholder="Name of task"> 
+       </br>
+       <input type="text" name="text" placeholder="What need to do?"> 
+        </div>
+        <div>
+        <label for="starting">Input start task completing:</label>
+       <input type="date" name="starting" placeholder="Create Date">
+       <label for="ending">Input task ending:</label>
+       <input type="date" name="ending" placeholder="Ending Date">
+        </div>
+        Choose priority:
+      </br>
+        <select name = "priority">
+            <option value="1">Low</option>
+            <option value="2">Mid</option>
+            <option value="3">High</option>
+        </select>
+      </br> 
+        <input type="text" name="responsible" placeholder="ID responsible for this">
+    </br>
+    <button type = "submit"> Add Task </button>
+      </br>
+    <a href="/dashboard">My ToDo List</a>
+</form>
+</div>
+</body>
+</html>
